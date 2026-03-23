@@ -1,0 +1,19 @@
+button.primary,
+a.primary {
+	background-color: black;
+	color: white;
+	padding: .5em 1em;
+	text-decoration: none;
+	display: inline-block;
+	border-radius: var(--radius-sm);
+	&:hover {
+		background-color: #333;
+	}
+}
+
+button:has(.svg-icon), a:has(.svg-icon) {
+	display: flex;
+	align-items: center;
+	gap: .5em;
+	justify-content: center;
+}

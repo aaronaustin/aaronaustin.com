@@ -1,0 +1,112 @@
+/* 5. Flow Spacing */
+.flow > * + * {
+	margin-top: var(--flow-space);
+}
+.flow[data-space="sm"] {
+	--flow-space: var(--space-sm);
+}
+.flow[data-space="md"] {
+	--flow-space: var(--space-md);
+}
+.flow[data-space="lg"] {
+	--flow-space: var(--space-lg);
+}
+.flow[data-space="xl"] {
+	--flow-space: var(--space-xl);
+}
+
+/* 6. Prose */
+.prose {
+	max-width: 65ch;
+}
+.prose > * + * {
+	margin-top: calc(var(--lh-p) * 1em);
+}
+.prose h2 {
+	margin-top: calc(var(--lh-h2) * 1em * 2);
+}
+.prose h3 {
+	margin-top: calc(var(--lh-h3) * 1em * 1.5);
+}
+
+/* 7. Layout Primitives */
+
+/* Container */
+.container {
+	width: min(1100px, 90%);
+	margin-inline: auto;
+}
+
+/* Stack - vertical layout with spacing variable */
+.stack {
+	--stack-space: var(--space-md);
+	display: flex;
+	flex-direction: column;
+}
+.stack > * + * {
+	margin-top: var(--stack-space);
+}
+
+/* Cluster - horizontal group with gap and wrap */
+.cluster {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-md);
+	align-items: center;
+}
+
+/* Grid - responsive card layout */
+.grid {
+	display: grid;
+	gap: var(--space-lg);
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Switcher - automatically switch columns by available space */
+.switcher {
+	display: grid;
+	gap: var(--space-lg);
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* 8. Optional Section Padding */
+.section {
+	padding-block: var(--space-xxl);
+}
+
+
+.link-card {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid black;
+	text-decoration: none;
+	background-color: #f3f3f3;
+	border-radius: var(--radius-sm);
+	> :first-child {
+		margin-top: 1em;
+	}
+	> *:not(.to-edge) {
+		margin-left: .5em;
+		margin-right: .5em;
+	}
+	> a.to-edge {
+		border-radius: var(--radius-none);
+	}
+}
+
+.spacer {
+    flex: 1;
+	margin-top: 0 !important;
+    // min-height: 1.5em;
+}
+
+.header {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	> svg {
+		max-width: calc(var(--image-width-full)/2);
+	}
+}

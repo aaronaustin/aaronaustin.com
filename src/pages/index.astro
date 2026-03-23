@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import StreamingLinks from "../components/StreamingLinks.astro";
+import BandcampPlayer from "../components/BandcampPlayer.astro";
+import PodcastPlayer from "../components/PodcastPlayer.astro";
+import AudioPlayer from "../components/AudioPlayer.jsx";
+import SubstackSignup from "../components/SubstackSignup.astro";
+import { Image } from "astro:assets";
+import HeaderImage from "../img/aa-header.png";
+import LatestReleaseImage from "../img/dear-minneapolis.png";
+//svgs
+import HeaderAaron from "../svg/header-aaron.astro";
+import HeaderAustin from "../svg/header-austin.astro";
+import SubstackIcon from "../svg/substack.astro";
+import PodcastIcon from "../svg/podcast.astro";
+import ArrowOutIcon from "../svg/arrow-out.astro";
+import YouTubePlayer from "../components/YouTubePlayer.astro";
+---
+
+<BaseLayout title="Aaron Austin Music">
+	<header class="flow text-center">
+		<div class="header">
+			<HeaderAaron /><HeaderAustin />
+		</div>
+		<p>Bootleg prayers, borrowed chords, and occasional art.</p>
+	</header>
+	<div class="flow text-center">
+		Coming soon...
+	</div>
+	<!-- <section class="flow text-center">
+		<h2>Latest Release</h2>
+		<Image src={LatestReleaseImage} alt="Dear Minneapolis" layout="constrained" width={600} />
+	</section>
+	<section class="flow text-center">
+		<StreamingLinks label="Listen Everywhere" spotify="" apple="" youtube="" amazon="" bandcamp="http://aaronaustin.bandcamp.com" />
+		<p>More on the way...</p>
+	</section>
+	<section class="flow text-center">
+		<h2>Watch the Video</h2>
+		<YouTubePlayer src="https://www.youtube.com/embed/ly8qFtgDSQw?si=VI53w2s9f1201Frg" title="Dear Minneapolis - Lyric Video" />
+	</section>
+	<section class="flow text-center">
+		<div class="flow">
+			<h2>Share the Love</h2>
+			<p>
+				This song is for the people. If it moves you, consider donating to one of these organizatons doing good work for all our neighbors. Or give your time, money, or
+				voice to the places and people you know.
+			</p>
+		</div>
+		<div class="grid">
+			<div class="link-card flow">
+				<h4>Immigrant Law Center of MN</h4>
+				<p>Free immigration legal representation for low-income immigrants and refugees in Minnesota — on the ground in Minneapolis when it matters most.</p>
+				<span class="spacer"></span>
+				<a class="primary to-edge" href="https://www.ilcm.org/support-ilcm/donate/">Donate <ArrowOutIcon /></a>
+			</div>
+			<div class="link-card flow">
+				<h4>Immigrant Defense Network</h4>
+				<p>
+					A coalition of 90+ organizations defending the constitutional rights of immigrant communities across Minnesota, including rapid response to enforcement actions.
+				</p>
+				<span class="spacer"></span>
+				<a class="primary to-edge" href="https://www.immigrantdefensenetwork.org/donate">Donate <ArrowOutIcon /></a>
+			</div>
+			<div class="link-card flow">
+				<h4>Unidos MN</h4>
+				<p>Running the primary hotline for reporting ICE activity in the Twin Cities and connecting immigrant families with immediate resources and support.</p>
+				<span class="spacer"></span>
+				<a class="primary to-edge" href="https://secure.givelively.org/donate/unidos-mn-education-fund">Donate <ArrowOutIcon /></a>
+			</div>
+			<div class="link-card flow">
+				<h4>Neighbors Immigration Clinic</h4>
+				<p>
+					This is a small but mighty organization in my home state. Kentucky's only nonprofit providing legal defense for immigrants facing detention and deportation
+					across the state.
+				</p>
+				<span class="spacer"></span>
+				<a class="primary to-edge" href="https://www.kyneighborsclinic.org/give">Donate <ArrowOutIcon /></a>
+			</div>
+		</div>
+	</section>
+	<section class="flow text-center">
+		<h2>Read & Connect</h2>
+		<div class="cluster flex-justify--center">
+			<a class="primary" href="https://aaronaustin.substack.com/"><SubstackIcon /> Bootleg Prayers</a>
+		</div>
+	</section>
+
+	<section class="flow text-center">
+		<h2>Podcast</h2>
+		<div class="cluster flex-justify--center">
+			<a class="primary" href="https://shows.acast.com/bootleg-prayers"><PodcastIcon /> Bootleg Prayers</a>
+		</div>
+	</section> -->
+
+	<footer class="flow text-center">
+		<p>© {new Date().getFullYear()} Aaron Austin</p>
+	</footer>
+</BaseLayout>

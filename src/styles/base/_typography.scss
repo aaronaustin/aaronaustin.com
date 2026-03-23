@@ -1,0 +1,88 @@
+/* 1. Base Variables */
+:root {
+	/* Fonts */
+	--font-body: "Cabin", system-ui, sans-serif;
+	--font-heading: "Cabin", system-ui, sans-serif;
+  --font-size: 17px;
+
+	/* Fluid Type Scale for Headings */
+	--fs-h1: clamp(1.5rem, 5vw, 3rem);
+	--fs-h2: clamp(1.25rem, 4vw, 2.25rem);
+	--fs-h3: clamp(1rem, 3vw, 1.5rem);
+	--fs-h4: clamp(0.95rem, 2.5vw, 1.25rem);
+	--fs-p: 1rem;
+
+	/* Line Heights */
+	--lh-h1: 1.2;
+	--lh-h2: 1.25;
+	--lh-h3: 1.3;
+	--lh-h4: 1.35;
+	--lh-p: 1.6;
+
+	/* Spacing */
+	--space-xs: 0.25rem;
+	--space-sm: 0.5rem;
+	--space-md: 1rem;
+	--space-lg: 1.5rem;
+	--space-xl: 2rem;
+	--space-xxl: 3rem;
+
+	/* Flow / Stack Defaults */
+	--flow-space: var(--space-md);
+	--stack-space: var(--space-md);
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure {
+	margin: 0;
+}
+
+/* 2. Base Typography */
+html {
+	font-size: var(--font-size);
+}
+
+body {
+	font-family: var(--font-body);
+	line-height: var(--lh-p);
+	color: var(--color-text, #000);
+}
+
+/* 3. Type Scale - Headings use clamp() */
+h1 {
+	font-family: var(--font-heading);
+	font-size: var(--fs-h1);
+	line-height: var(--lh-h1);
+}
+h2 {
+	font-family: var(--font-heading);
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2);
+}
+h3 {
+	font-family: var(--font-heading);
+	font-size: var(--fs-h3);
+	line-height: var(--lh-h3);
+}
+h4 {
+	font-family: var(--font-heading);
+	font-size: var(--fs-h4);
+	line-height: var(--lh-h4);
+}
+p {
+	font-size: var(--fs-p);
+	line-height: var(--lh-p);
+}
+
+a, a:visited {
+  color: inherit;
+  text-decoration-thickness: .15em;
+  text-underline-offset: 4px;
+}

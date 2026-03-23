@@ -1,0 +1,9 @@
+
+:root {
+  --image-width-full: 600px;
+}
+
+img {
+  max-width: 100%;
+  height: auto; /* Prevents image from stretching if only width is constrained */
+}

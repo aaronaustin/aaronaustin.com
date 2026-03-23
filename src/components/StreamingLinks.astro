@@ -1,0 +1,57 @@
+---
+const { spotify, apple, bandcamp, youtube, amazon, tidal, label = "Listen" } = Astro.props;
+import AppleIcon from "../svg/apple.astro";
+import AmazonIcon from "../svg/amazon.astro";
+import YoutubeIcon from "../svg/youtube.astro";
+import SpotifyIcon from "../svg/spotify.astro";
+import BandcampIcon from "../svg/bandcamp.astro";
+---
+
+<div class="flow text-center">
+	<h2>{label}</h2>
+	<slot></slot>
+	<div class="cluster flex-justify--center">
+		{
+			spotify && (
+				<a href={spotify} class="primary" target="_blank">
+					<SpotifyIcon/> Spotify
+				</a>
+			)
+		}
+		{
+			apple && (
+				<a href={apple} class="primary" target="_blank">
+					<AppleIcon/> Apple Music
+				</a>
+			)
+		}
+		{
+			bandcamp && (
+				<a href={bandcamp} class="primary" target="_blank">
+					<BandcampIcon/> Bandcamp
+				</a>
+			)
+		}
+		{
+			youtube && (
+				<a href={youtube} class="primary" target="_blank">
+					<YoutubeIcon/> YouTube
+				</a>
+			)
+		}
+		{
+			amazon && (
+				<a href={amazon} class="primary" target="_blank">
+					<AmazonIcon/> Amazon
+				</a>
+			)
+		}
+		{
+			tidal && (
+				<a href={tidal} class="primary" target="_blank">
+					Tidal
+				</a>
+			)
+		}
+	</div>
+</div>

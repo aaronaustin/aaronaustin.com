@@ -1,0 +1,58 @@
+:root {
+	--radius-none: 0rem;
+	/* 0px    — sharp corners */
+	--radius-xs: 0.125rem;
+	/* 2px    — subtle, nearly square */
+	--radius-sm: 0.25rem;
+	/* 4px    — inputs, small buttons */
+	--radius-md: 0.375rem;
+	/* 6px    — default buttons, cards */
+	--radius-lg: 0.5rem;
+	/* 8px    — containers, panels */
+	--radius-xl: 0.75rem;
+	/* 12px   — modals, larger cards */
+	--radius-2xl: 1rem;
+	/* 16px   — prominent containers */
+	--radius-3xl: 1.5rem;
+	/* 24px   — feature sections */
+	--radius-full: 9999px;
+	/* pill   — pill buttons, badges, tags */
+}
+
+
+
+.rounded-none {
+	border-radius: var(--radius-none);
+}
+
+.rounded-xs {
+	border-radius: var(--radius-xs);
+}
+
+.rounded-sm {
+	border-radius: var(--radius-sm);
+}
+
+.rounded-md {
+	border-radius: var(--radius-md);
+}
+
+.rounded-lg {
+	border-radius: var(--radius-lg);
+}
+
+.rounded-xl {
+	border-radius: var(--radius-xl);
+}
+
+.rounded-2xl {
+	border-radius: var(--radius-2xl);
+}
+
+.rounded-3xl {
+	border-radius: var(--radius-3xl);
+}
+
+.rounded-full {
+	border-radius: var(--radius-full);
+}
