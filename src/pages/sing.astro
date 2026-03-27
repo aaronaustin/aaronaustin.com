@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import StreamingLinks from "../components/StreamingLinks.astro";
+import BandcampPlayer from "../components/BandcampPlayer.astro";
+import PodcastPlayer from "../components/PodcastPlayer.astro";
+import AudioPlayer from "../components/AudioPlayer.jsx";
+import SubstackSignup from "../components/SubstackSignup.astro";
+import { Image } from "astro:assets";
+import HeaderImage from "../img/aa-header.png";
+import LatestReleaseImage from "../img/dear-minneapolis.png";
+//svgs
+import HeaderAaron from "../svg/header-aaron.astro";
+import HeaderAustin from "../svg/header-austin.astro";
+import SubstackIcon from "../svg/substack.astro";
+import PodcastIcon from "../svg/podcast.astro";
+import ArrowOutIcon from "../svg/arrow-out.astro";
+import YouTubePlayer from "../components/YouTubePlayer.astro";
+import FacebookIcon from "../svg/facebook.astro";
+import InstaIcon from "../svg/instagram.astro";
+---
+
+<BaseLayout title="Aaron Austin Music">
+	<section class="flow text-center">
+		<h2>This Joy</h2>
+			<p>
+				This joy* that I have,<br />
+				The world didn't give it to me.<br />
+				This joy* that I have,<br />
+				The world didn't give it to me.<br />
+				This joy* that I have,<br />
+				The world didn't give it to me.<br />
+				The world didn't give it,<br />
+				And the world can't take it away.
+			</p>
+			<p><em>*strength; *worth; *love; *peace</em></p>
+
+			<h2>New Dawn</h2>
+			<p>
+				In the shadows, in the darkness,<br /> there's a new dawn rising up.<br />
+				In our troubles, in our heartache,<br /> there's a new dawn rising up.<br />
+				Every night will end in light;<br /> there's a new dawn rising up.<br />
+				Every end will soon begin;<br /> there's a new dawn rising up.
+			</p>
+
+			<h2>Ain't Gonna Let Nobody</h2>
+			<p>
+				Ain't gonna let nobody* turn me around,<br />
+				Turn me around, turn me around.<br />
+				Ain't gonna let nobody* turn me around,<br />
+				I'm gonna keep on walking, keep on talking,<br />
+				Marching up to freedom land.
+			</p>
+			<p><em>*injustice; *racism; *no hatred; *no ICE squad</em></p>
+		</h2>
+
+	</section>
+	<section class="flow text-center">
+		<div class="cluster flex-justify--center">
+			<a class="primary" href="/">Back to home page</a>
+		</div>
+	</section>
+	
+	<footer class="flow text-center">
+		<p>© {new Date().getFullYear()} Aaron Austin</p>
+	</footer>
+</BaseLayout>
