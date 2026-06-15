@@ -2,7 +2,17 @@
 import "../styles/global.scss";
 import HeaderAaron from "../svg/header-aaron.astro";
 import HeaderAustin from "../svg/header-austin.astro";
-const { title = "Music Site" } = Astro.props;
+
+const {
+	title = "Aaron Austin Music",
+	description = "Bootleg prayers, borrowed chords, and occasional art — music by Aaron Austin.",
+	image = "/og-default.png",
+	type = "website",
+	structuredData,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(image, Astro.site);
 ---
 
 <!doctype html>
@@ -11,6 +21,26 @@ const { title = "Music Site" } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<meta property="og:type" content={type} />
+		<meta property="og:site_name" content="Aaron Austin Music" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:image" content={socialImageURL} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={socialImageURL} />
+
+		{
+			structuredData && (
+				<script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
+			)
+		}
 	</head>
 	<body>
 		<nav class="site-nav container">

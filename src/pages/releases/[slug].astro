@@ -15,11 +15,28 @@ export async function getStaticPaths() {
 }
 
 const { release } = Astro.props;
-const { title, cover, coverAlt, summary, streaming, video, donation } = release.data;
+const { title, releaseDate, cover, coverAlt, summary, streaming, video, donation } = release.data;
 const { Content } = await release.render();
+
+const coverURL = new URL(cover.src, Astro.site);
+const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "MusicAlbum",
+	name: title,
+	byArtist: { "@type": "MusicGroup", name: "Aaron Austin" },
+	datePublished: releaseDate.toISOString().split("T")[0],
+	image: coverURL,
+	url: new URL(Astro.url.pathname, Astro.site),
+};
 ---
 
-<BaseLayout title={`${title} — Aaron Austin Music`}>
+<BaseLayout
+	title={`${title} — Aaron Austin Music`}
+	description={summary ?? `${title} — music by Aaron Austin.`}
+	image={coverURL}
+	type="music.album"
+	structuredData={structuredData}
+>
 	<header class="flow text-center">
 		<h1>{title}</h1>
 		{summary && <p>{summary}</p>}
