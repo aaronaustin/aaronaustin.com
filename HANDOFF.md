@@ -7,15 +7,24 @@ _Last updated: 2026-06-15_
   the SEO commit hadn't been pushed yet):
   - `public/og-default.png` is now padded to 1200×630 on a white background
     (was a bare 975×139 logo crop — Facebook requires ≥200×200 share images).
-  - Release pages now generate a 1200px-wide JPEG of the cover via
-    `getImage()` for `og:image`/`twitter:image`/JSON-LD instead of shipping the
-    full 3000×3000 source PNG to crawlers (298KB → 78KB / 216KB → 55KB).
-  - **Fixed Facebook center-cropping square covers**: `BaseLayout.astro` now
-    emits `og:image:width`/`og:image:height` (default `1200`/`630` for
-    `og-default.png`; release pages pass `ogImage.attributes.width/height`,
-    i.e. 1200×1200). Without explicit dimensions, Facebook assumes its
-    preferred 1.91:1 ratio and crops square images to fit.
-  - Verified via `astro build`.
+  - Added `og:image:width`/`og:image:height` to `BaseLayout.astro` (defaults
+    `1200`/`630`) — Facebook needs these to know an image's real aspect ratio.
+  - **Square cover crop fix**: even with `og:image:width/height` set to 1200×1200,
+    Facebook's link-preview card still center-cropped the square release covers.
+    Added `scripts/generate-og-images.mjs` (runs via `predev`/`prebuild`, uses
+    `sharp` + `gray-matter`) which letterboxes each release's square cover onto a
+    1200×630 white canvas → `public/og/<slug>.jpg` (gitignored, regenerated every
+    build). Release pages now use that as `og:image`/`twitter:image`; the JSON-LD
+    `image` field still uses the 1200×1200 cover (square art is preferred for
+    `MusicAlbum` structured data).
+  - Added `sharp` and `gray-matter` as devDependencies (were already transitive
+    deps of Astro, now used directly by the script).
+  - Verified via `astro build` — `dist/og/dear-minneapolis.jpg` etc. are 1200×630.
+  - **Known non-issue**: Facebook's debugger flags `fb:app_id` as a missing
+    "required" property. That's only needed for Facebook Insights/analytics on
+    shares — not required for the link preview itself. Skipped (would need a real
+    Facebook App ID from the user).
+  - Not yet committed/pushed.
 - **SEO & social sharing** set up across the site:
   - `BaseLayout.astro` now renders per-page `<meta name="description">`,
     `<link rel="canonical">`, Open Graph, and Twitter card tags, plus an optional

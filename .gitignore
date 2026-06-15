@@ -2,3 +2,4 @@ node_modules
 .astro
 .claude
 dist
+public/og

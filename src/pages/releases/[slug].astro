@@ -18,8 +18,8 @@ const { release } = Astro.props;
 const { title, releaseDate, cover, coverAlt, summary, streaming, video, donation } = release.data;
 const { Content } = await release.render();
 
-const ogImage = await getImage({ src: cover, width: 1200, format: "jpeg" });
-const coverURL = new URL(ogImage.src, Astro.site);
+const ogCover = await getImage({ src: cover, width: 1200, format: "jpeg" });
+const coverURL = new URL(ogCover.src, Astro.site);
 const structuredData = {
 	"@context": "https://schema.org",
 	"@type": "MusicAlbum",
@@ -34,9 +34,7 @@ const structuredData = {
 <BaseLayout
 	title={`${title} — Aaron Austin Music`}
 	description={summary ?? `${title} — music by Aaron Austin.`}
-	image={coverURL}
-	imageWidth={ogImage.attributes.width}
-	imageHeight={ogImage.attributes.height}
+	image={`/og/${Astro.params.slug}.jpg`}
 	type="music.album"
 	structuredData={structuredData}
 >
