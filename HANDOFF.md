@@ -10,6 +10,11 @@ _Last updated: 2026-06-15_
   - Release pages now generate a 1200px-wide JPEG of the cover via
     `getImage()` for `og:image`/`twitter:image`/JSON-LD instead of shipping the
     full 3000×3000 source PNG to crawlers (298KB → 78KB / 216KB → 55KB).
+  - **Fixed Facebook center-cropping square covers**: `BaseLayout.astro` now
+    emits `og:image:width`/`og:image:height` (default `1200`/`630` for
+    `og-default.png`; release pages pass `ogImage.attributes.width/height`,
+    i.e. 1200×1200). Without explicit dimensions, Facebook assumes its
+    preferred 1.91:1 ratio and crops square images to fit.
   - Verified via `astro build`.
 - **SEO & social sharing** set up across the site:
   - `BaseLayout.astro` now renders per-page `<meta name="description">`,

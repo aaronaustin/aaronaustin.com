@@ -35,6 +35,8 @@ const structuredData = {
 	title={`${title} — Aaron Austin Music`}
 	description={summary ?? `${title} — music by Aaron Austin.`}
 	image={coverURL}
+	imageWidth={ogImage.attributes.width}
+	imageHeight={ogImage.attributes.height}
 	type="music.album"
 	structuredData={structuredData}
 >
