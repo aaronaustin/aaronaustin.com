@@ -3,6 +3,11 @@
 _Last updated: 2026-06-15_
 
 ## Current state
+- **Favicon added**: `public/favicon.svg` (the "aa" mark, from the provided
+  `aa-favicon.svg`), linked via `<link rel="icon" type="image/svg+xml">` in
+  `BaseLayout.astro`. Inline `<style>` with `prefers-color-scheme: dark` makes it
+  black in light mode, white in dark mode. Verified via `astro build`. Not yet
+  committed/pushed.
 - **Social image follow-ups** (after first Facebook share only showed the title —
   the SEO commit hadn't been pushed yet):
   - `public/og-default.png` is now padded to 1200×630 on a white background
