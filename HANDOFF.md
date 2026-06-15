@@ -3,6 +3,14 @@
 _Last updated: 2026-06-15_
 
 ## Current state
+- **Social image follow-ups** (after first Facebook share only showed the title —
+  the SEO commit hadn't been pushed yet):
+  - `public/og-default.png` is now padded to 1200×630 on a white background
+    (was a bare 975×139 logo crop — Facebook requires ≥200×200 share images).
+  - Release pages now generate a 1200px-wide JPEG of the cover via
+    `getImage()` for `og:image`/`twitter:image`/JSON-LD instead of shipping the
+    full 3000×3000 source PNG to crawlers (298KB → 78KB / 216KB → 55KB).
+  - Verified via `astro build`.
 - **SEO & social sharing** set up across the site:
   - `BaseLayout.astro` now renders per-page `<meta name="description">`,
     `<link rel="canonical">`, Open Graph, and Twitter card tags, plus an optional
