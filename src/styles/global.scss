@@ -8,6 +8,8 @@
 @use "utilities/radius";
 @use "utilities/align";
 @use "components/streaming";
+@use "components/release-card";
+@use "components/link-grid";
 
 .audio-player{
 display:flex;

@@ -1,0 +1,26 @@
+---
+import ArrowOutIcon from "../svg/arrow-out.astro";
+
+const { heading = "Share the Love", intro, orgs = [] } = Astro.props;
+---
+
+<div class="flow text-center">
+	<div class="flow">
+		<h2>{heading}</h2>
+		{intro && <p>{intro}</p>}
+	</div>
+	<div class="grid">
+		{
+			orgs.map((org) => (
+				<div class="link-card flow">
+					<h4>{org.name}</h4>
+					<p>{org.description}</p>
+					<span class="spacer"></span>
+					<a class="primary to-edge" href={org.url}>
+						{org.cta ?? "Donate"} <ArrowOutIcon />
+					</a>
+				</div>
+			))
+		}
+	</div>
+</div>

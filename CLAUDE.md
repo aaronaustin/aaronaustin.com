@@ -1,0 +1,159 @@
+# Aaron Austin Music Site — Design & Composition Guide
+
+Astro 4 site for aaronaustin.com (music/personal site). Deployed to GitHub Pages via
+custom domain (CNAME). One React island (`AudioPlayer`); everything else is Astro
+components + SCSS.
+
+## Stack
+- Astro 4 + `@astrojs/react` + Sass
+- `astro.config.mjs`: `site: https://aaronaustin.com`, no `base` (root domain)
+- `.github/workflows/` builds with `npm ci && npm run build`, deploys `dist/` to Pages
+
+## Page composition pattern
+Every page follows the same shape — import `BaseLayout`, then stack `<section>`s:
+
+```astro
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+// only import the components/icons this page actually uses
+---
+
+<BaseLayout title="...">
+	<header class="flow text-center">...</header>
+
+	<section class="flow text-center">
+		<h2>Section Title</h2>
+		...content...
+	</section>
+</BaseLayout>
+```
+
+- `BaseLayout.astro` (`src/layouts/`) imports global SCSS, sets `<title>`, and wraps
+  every page with the site-wide **nav** (`.site-nav` — logo lockup linking to `/`)
+  and **footer** (`.site-footer` — `© {year} Aaron Austin`). Pages should NOT define
+  their own nav/logo or footer — those live only in `BaseLayout`.
+- A page's own `<header class="flow text-center">` (if any) is for page-specific
+  intro content only (e.g. the homepage tagline) — not the site logo.
+- Pages are centered, vertically-rhythmed stacks of sections — `.flow` (margin-top
+  between siblings) + `.text-center` is the default combo for a section.
+- **Only import what the page uses.** Don't copy the full import block from another
+  page — it leaves dead imports behind.
+
+## Components (`src/components/`)
+Thin, prop-driven Astro wrappers around embeds/widgets:
+- `StreamingLinks.astro` — pass per-service URLs (`spotify`, `apple`, `bandcamp`,
+  `youtube`, `amazon`, `tidal`); renders icon+link per provided prop in a `.cluster`.
+- `BandcampPlayer.astro`, `PodcastPlayer.astro`, `YouTubePlayer.astro`,
+  `SubstackSignup.astro` — iframe embeds, props in, markup out.
+- `AudioPlayer.jsx` — the only React island. Keep new interactive widgets in React
+  only if they need client-side state; otherwise prefer plain Astro components.
+
+## Icons (`src/svg/`)
+One `.astro` file per icon, each just inline `<svg class="svg-icon" fill="currentColor" ...>`.
+`.svg-icon { width: 1.25em; height: 1.25em }` makes icons scale with text and inherit
+color. Add new icons the same way — no icon library/sprite sheet.
+
+## CSS architecture (`src/styles/`)
+`global.scss` is an index file that `@use`s partials in layers (base → layout → input →
+utilities → components). Utility-first, token-driven:
+
+- `base/_typography.scss` — design tokens as CSS custom properties:
+  - Fluid type scale via `clamp()`: `--fs-h1`…`--fs-p`, line-heights `--lh-*`
+  - Spacing scale: `--space-xs` → `--space-xxl`
+  - Font: "Cabin"
+- `base/_reset.scss`, `base/_image.scss`, `base/_svg.scss` — minimal resets/sizing
+- `layout/_container.scss` — the main layout-primitives file (Every Layout style):
+  - `.flow` — vertical rhythm via `--flow-space`, override with
+    `data-space="sm|md|lg|xl"`
+  - `.container` — `width: min(1100px, 90%)`, centered
+  - `.stack`, `.cluster`, `.grid`, `.switcher` — flex/grid primitives
+  - `.prose` — readable-width text block
+  - Page-specific shared bits also live here: `.link-card` (donation/info cards),
+    `.header` (logo lockup), `.spacer`
+- `input/_button.scss` — `.primary` (black pill button/link); links/buttons that
+  `:has(.svg-icon)` auto-center icon+text with a gap
+- `utilities/_align.scss` — text-align / flex-justify helpers
+- `utilities/_radius.scss` — radius token scale (`--radius-xs`…`--radius-full`) +
+  `.rounded-*` utilities
+- `components/_streaming.scss` — legacy/unused; `StreamingLinks.astro` now uses
+  `.cluster` + `.primary` instead. Safe to delete when touching that area.
+
+**Convention:** compose pages from existing layout primitives (`flow`, `cluster`,
+`grid`, `container`, `.primary`, `.link-card`) via `class=""`. Avoid one-off
+per-page CSS — add a new utility/primitive to `layout/_container.scss` or
+`utilities/` if a pattern repeats.
+
+## Images
+Use `astro:assets` `<Image src={...} layout="constrained" width={...} />` for content
+images. Source images live in `src/img/`. Release cover art lives alongside its
+content entry's `cover` frontmatter field (see Releases below).
+
+## Releases (content collection)
+Releases are modeled as a content collection (`src/content/config.ts`, schema for
+`releases`). Each release is one file in `src/content/releases/<slug>.md` — the
+filename becomes the URL slug at `/releases/<slug>/`.
+
+**Adding a new release** — create `src/content/releases/<slug>.md` with frontmatter:
+
+```yaml
+---
+title: "Release Title"
+releaseDate: 2026-06-01
+cover: "../../img/your-cover.png"   # path relative to this file
+coverAlt: "Optional alt text"
+summary: "One-line description shown on the homepage card and release header."
+streaming:                          # optional — omit services that don't apply
+  spotify: "https://..."
+  apple: "https://..."
+  youtube: "https://..."
+  amazon: "https://..."
+  bandcamp: "https://..."
+  tidal: "https://..."
+video:                               # optional — adds a "Watch the Video" section
+  src: "https://www.youtube.com/embed/..."
+  title: "Optional video title"
+donation:                            # optional — adds a "Share the Love" section
+  heading: "Share the Love"          # defaults to "Share the Love"
+  intro: "Why this release supports these orgs..."
+  orgs:
+    - name: "Org Name"
+      description: "What they do."
+      url: "https://..."
+      cta: "Donate"                  # defaults to "Donate"
+---
+
+Optional Markdown body — rendered in its own section on the release page.
+Leave empty if there's nothing beyond the structured fields above.
+```
+
+- `title`, `releaseDate`, and `cover` are required; everything else is optional, so a
+  minimal release can be just those three fields plus a `summary` and `streaming`
+  block.
+- `donation` and `video` are opt-in per release — reuse them for future releases tied
+  to a cause/video, skip them for simple drops.
+- The homepage (`src/pages/index.astro`) lists all releases (newest first via
+  `releaseDate`) using `ReleaseCard.astro`. The detail page is the dynamic route
+  `src/pages/releases/[slug].astro`, which conditionally renders streaming links,
+  video, donation cards, and the Markdown body based on which fields are present.
+- `DonationCards.astro` (`src/components/`) renders the `donation` block — reuse it
+  rather than re-writing the `.link-card` grid markup.
+
+### Release cards (`ReleaseCard.astro` + `components/_release-card.scss`)
+The homepage grid card is a single `<a class="release-card">` wrapping the whole
+card — cover image on top, title in `.release-card-info` below. The whole card is
+the click target (no separate button). Keep cards minimal — no summary text on the
+card itself (the summary shows on the release detail page).
+
+### Hover effect convention
+Cards (`.release-card`, `.link-card-sm`) use a solid `box-shadow` (offset 0, blur 0,
+spread only — e.g. `0 0 0 6px black`) that expands from `0` on `:hover`, transitioned
+via `transition: box-shadow 0.2s ease`. This reads as the card's border "thickening"
+outward. Reuse this pattern for new card-style link components instead of underlines
+or background-color changes.
+
+### Small link grid (`components/_link-grid.scss`)
+`.link-grid` (`grid-template-columns: repeat(auto-fit, minmax(140px, 1fr))`) +
+`.link-card-sm` (icon + label, centered, same hover effect as above) — used for the
+homepage "Connect" section (Substack, podcast, socials, song sheets). Use this for
+small "destination" links; use `.link-card` (in `layout/_container.scss`) for
+content-heavy cards like donation orgs.

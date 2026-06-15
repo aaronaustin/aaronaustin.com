@@ -11,6 +11,21 @@ a.primary {
 	}
 }
 
+button.outline,
+a.outline {
+	background-color: transparent;
+	color: black;
+	border: 2px solid black;
+	padding: calc(.5em - 2px) calc(1em - 2px);
+	text-decoration: none;
+	display: inline-block;
+	border-radius: var(--radius-sm);
+	&:hover {
+		background-color: black;
+		color: white;
+	}
+}
+
 button:has(.svg-icon), a:has(.svg-icon) {
 	display: flex;
 	align-items: center;

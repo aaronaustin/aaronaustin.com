@@ -1,0 +1,13 @@
+---
+import { Image } from "astro:assets";
+
+const { release } = Astro.props;
+const { title, cover, coverAlt } = release.data;
+---
+
+<a class="release-card" href={`/releases/${release.slug}/`}>
+	{cover && <Image src={cover} alt={coverAlt ?? title} layout="constrained" width={500} />}
+	<div class="release-card-info">
+		<h3>{title}</h3>
+	</div>
+</a>

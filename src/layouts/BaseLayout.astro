@@ -1,5 +1,7 @@
 ---
 import "../styles/global.scss";
+import HeaderAaron from "../svg/header-aaron.astro";
+import HeaderAustin from "../svg/header-austin.astro";
 const { title = "Music Site" } = Astro.props;
 ---
 
@@ -11,8 +13,16 @@ const { title = "Music Site" } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
+		<nav class="site-nav container">
+			<a href="/" class="site-logo" aria-label="Aaron Austin Music — Home">
+				<HeaderAaron /><HeaderAustin />
+			</a>
+		</nav>
 		<main class="container flow">
 			<slot />
 		</main>
+		<footer class="site-footer container flow text-center">
+			<p>© {new Date().getFullYear()} Aaron Austin</p>
+		</footer>
 	</body>
 </html>

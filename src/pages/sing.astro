@@ -1,22 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import StreamingLinks from "../components/StreamingLinks.astro";
-import BandcampPlayer from "../components/BandcampPlayer.astro";
-import PodcastPlayer from "../components/PodcastPlayer.astro";
-import AudioPlayer from "../components/AudioPlayer.jsx";
-import SubstackSignup from "../components/SubstackSignup.astro";
-import { Image } from "astro:assets";
-import HeaderImage from "../img/aa-header.png";
-import LatestReleaseImage from "../img/dear-minneapolis.png";
-//svgs
-import HeaderAaron from "../svg/header-aaron.astro";
-import HeaderAustin from "../svg/header-austin.astro";
-import SubstackIcon from "../svg/substack.astro";
-import PodcastIcon from "../svg/podcast.astro";
-import ArrowOutIcon from "../svg/arrow-out.astro";
-import YouTubePlayer from "../components/YouTubePlayer.astro";
-import FacebookIcon from "../svg/facebook.astro";
-import InstaIcon from "../svg/instagram.astro";
 ---
 
 <BaseLayout title="Aaron Austin Music">
@@ -59,8 +42,4 @@ import InstaIcon from "../svg/instagram.astro";
 			<a class="primary" href="/">Back to home page</a>
 		</div>
 	</section>
-	
-	<footer class="flow text-center">
-		<p>© {new Date().getFullYear()} Aaron Austin</p>
-	</footer>
 </BaseLayout>

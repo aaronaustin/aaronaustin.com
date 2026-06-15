@@ -1,112 +1,52 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import StreamingLinks from "../components/StreamingLinks.astro";
-import BandcampPlayer from "../components/BandcampPlayer.astro";
-import PodcastPlayer from "../components/PodcastPlayer.astro";
-import AudioPlayer from "../components/AudioPlayer.jsx";
-import SubstackSignup from "../components/SubstackSignup.astro";
-import { Image } from "astro:assets";
-import HeaderImage from "../img/aa-header.png";
-import LatestReleaseImage from "../img/dear-minneapolis.png";
+import { getCollection } from "astro:content";
+import ReleaseCard from "../components/ReleaseCard.astro";
 //svgs
-import HeaderAaron from "../svg/header-aaron.astro";
-import HeaderAustin from "../svg/header-austin.astro";
 import SubstackIcon from "../svg/substack.astro";
 import PodcastIcon from "../svg/podcast.astro";
-import ArrowOutIcon from "../svg/arrow-out.astro";
-import YouTubePlayer from "../components/YouTubePlayer.astro";
 import FacebookIcon from "../svg/facebook.astro";
 import InstaIcon from "../svg/instagram.astro";
+
+const releases = (await getCollection("releases")).sort(
+	(a, b) => b.data.releaseDate.valueOf() - a.data.releaseDate.valueOf()
+);
 ---
 
 <BaseLayout title="Aaron Austin Music">
 	<header class="flow text-center">
-		<div class="header">
-			<HeaderAaron /><HeaderAustin />
-		</div>
 		<p>Bootleg prayers, borrowed chords, and occasional art.</p>
 	</header>
+
 	<section class="flow text-center">
-		<h2>Latest Release</h2>
-		<Image src={LatestReleaseImage} alt="Dear Minneapolis" layout="constrained" width={600} />
-	</section>
-	<section class="flow text-center">
-		<StreamingLinks label="Listen Everywhere" spotify="https://open.spotify.com/track/431rqSEs9ItHhzRRlwHTly?si=rPhAc-FkS3unr3aUHPdoxw" apple="https://music.apple.com/us/album/dear-minneapolis-single/1888554587" youtube="https://music.youtube.com/watch?v=wEu5rLGA2hA&si=nnqY2L7Sk5wnFfl9" amazon="https://music.amazon.com/albums/B0GV3G35VN?marketplaceId=ATVPDKIKX0DER&musicTerritory=US&ref=dm_sh_P60Js0I2OGEXBXVDlnWGxFAVo&trackAsin=B0GV31B446" bandcamp="http://aaronaustin.bandcamp.com" />
-	</section>
-	<section class="flow text-center">
-		<h2>Watch the Video</h2>
-		<YouTubePlayer src="https://www.youtube.com/embed/cTBV8P-ZmpA?si=Vutzay0GidWkzfX7" title="Dear Minneapolis - Lyric Video" />
-	</section>
-	<section class="flow text-center">
-		<div class="flow">
-			<h2>Share the Love</h2>
-			<p>
-				This song is for the people. If it moves you, consider donating to one of these organizatons doing good work for all our neighbors. Or give your time, money, or
-				voice to the places and people you know.
-			</p>
-		</div>
+		<h2>Releases</h2>
 		<div class="grid">
-			<div class="link-card flow">
-				<h4>Immigrant Law Center of MN</h4>
-				<p>Free immigration legal representation for low-income immigrants and refugees in Minnesota — on the ground in Minneapolis when it matters most.</p>
-				<span class="spacer"></span>
-				<a class="primary to-edge" href="https://www.ilcm.org/support-ilcm/donate/">Donate <ArrowOutIcon /></a>
-			</div>
-			<div class="link-card flow">
-				<h4>Immigrant Defense Network</h4>
-				<p>
-					A coalition of 90+ organizations defending the constitutional rights of immigrant communities across Minnesota, including rapid response to enforcement actions.
-				</p>
-				<span class="spacer"></span>
-				<a class="primary to-edge" href="https://www.immigrantdefensenetwork.org/donate">Donate <ArrowOutIcon /></a>
-			</div>
-			<div class="link-card flow">
-				<h4>Unidos MN</h4>
-				<p>Running the primary hotline for reporting ICE activity in the Twin Cities and connecting immigrant families with immediate resources and support.</p>
-				<span class="spacer"></span>
-				<a class="primary to-edge" href="https://secure.givelively.org/donate/unidos-mn-education-fund">Donate <ArrowOutIcon /></a>
-			</div>
-			<div class="link-card flow">
-				<h4>Neighbors Immigration Clinic</h4>
-				<p>
-					This is a small but mighty organization in my home state. Kentucky's only nonprofit providing legal defense for immigrants facing detention and deportation
-					across the state.
-				</p>
-				<span class="spacer"></span>
-				<a class="primary to-edge" href="https://www.kyneighborsclinic.org/give">Donate <ArrowOutIcon /></a>
-			</div>
-		</div>
-	</section>
-	<section class="flow text-center">
-		<h2>Read & Connect</h2>
-		<div class="cluster flex-justify--center">
-			<a class="primary" href="https://aaronaustin.substack.com/"><SubstackIcon /> Bootleg Prayers</a>
+			{releases.map((release) => <ReleaseCard release={release} />)}
 		</div>
 	</section>
 
 	<section class="flow text-center">
-		<h2>Podcast</h2>
-		<div class="cluster flex-justify--center">
-			<a class="primary" href="https://shows.acast.com/bootleg-prayers"><PodcastIcon /> Bootleg Prayers</a>
+		<h2>Connect</h2>
+		<div class="link-grid">
+			<a class="link-card-sm" href="https://aaronaustin.substack.com/">
+				<SubstackIcon />
+				<span>Bootleg Prayers<br />(Substack)</span>
+			</a>
+			<a class="link-card-sm" href="https://shows.acast.com/bootleg-prayers">
+				<PodcastIcon />
+				<span>Bootleg Prayers<br />(Podcast)</span>
+			</a>
+			<a class="link-card-sm" href="https://facebook.com/bootlegpreacher">
+				<FacebookIcon />
+				<span>Facebook</span>
+			</a>
+			<a class="link-card-sm" href="https://instagram.com/bootlegpreacher">
+				<InstaIcon />
+				<span>Instagram</span>
+			</a>
+			<a class="link-card-sm" href="/sing">
+				<span>No Kings<br />Song Sheets</span>
+			</a>
 		</div>
 	</section>
-
-	<section class="flow text-center">
-		<h2>Be Social</h2>
-		<div class="cluster flex-justify--center">
-			<a class="primary" href="https://facebook.com/bootlegpreacher"><FacebookIcon /></a>
-			<a class="primary" href="https://instagram.com/bootlegpreacher"><InstaIcon /></a>
-		</div>
-	</section>
-
-	<section class="flow text-center">
-		<h2>Sing!</h2>
-		<div class="cluster flex-justify--center">
-			<a class="primary" href="/sing">No Kings Song Sheets</a>
-		</div>
-	</section>
-
-	<footer class="flow text-center">
-		<p>© {new Date().getFullYear()} Aaron Austin</p>
-	</footer>
 </BaseLayout>

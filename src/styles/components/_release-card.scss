@@ -1,0 +1,29 @@
+.release-card {
+	display: flex;
+	flex-direction: column;
+	color: inherit;
+	text-decoration: none;
+	border: 1px solid black;
+	border-radius: var(--radius-sm);
+	overflow: hidden;
+	box-shadow: 0 0 0 0 black;
+	transition: box-shadow 0.2s ease;
+
+	img {
+		display: block;
+		width: 100%;
+	}
+
+	&:hover {
+		box-shadow: 0 0 0 6px black;
+	}
+}
+
+.release-card-info {
+	padding: var(--space-sm) var(--space-md);
+
+	h3 {
+		margin: 0;
+		text-align: left;
+	}
+}
